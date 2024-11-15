@@ -248,13 +248,10 @@ def run_mutiprocesing(collaborator_list, num_workers):
         chunks[-1].extend(collaborator_list[num_workers * chunk_size:])
 
     # Initialize a pool of workers
-    #with Pool(num_workers) as pool:
-    #    # Map the process_collaborators function to each chunk
-    #    results = pool.map(process_collaborators, chunks)
-
-    p1 = Process(target=process_collaborators, args=(1,))
-    p2 = Process(target=process_collaborators, args=(2,))
-    
+    with Pool(num_workers) as pool:
+        # Map the process_collaborators function to each chunk
+        results = pool.map(process_collaborators, chunks)
+   
     # Flatten the results list to combine all outputs from each worker
     combined_results = [affiliation for sublist in results for affiliation in sublist]
 
